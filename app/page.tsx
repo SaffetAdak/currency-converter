@@ -1,7 +1,9 @@
+import Converter from "@/components/Converter";
+
 export default function Home() {
   return (
-    <div>
-      <h1>Home</h1>
-    </div>
+    <main className="flex flex-col items-center ">
+      <Converter />
+    </main>
   );
 }
