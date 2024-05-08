@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Dropdown,
   DropdownTrigger,
@@ -6,34 +5,40 @@ import {
   DropdownItem,
   Button,
 } from "@nextui-org/react";
-import { DropdownItemProps } from "@/lib/types";
+import { currencies } from "@/lib/data";
+import { polyfillCountryFlagEmojis } from "country-flag-emoji-polyfill";
+import { ConversionNameProps } from "@/lib/types";
+import { useCurrencyStore } from "@/store/currencyStore";
 
 export default function DropdownConverter({
-  name,
-  color,
-  data,
-}: DropdownItemProps) {
+  from,
+  to,
+  isFrom,
+}: ConversionNameProps) {
+  polyfillCountryFlagEmojis();
+  const { setFrom, setTo } = useCurrencyStore();
   return (
-    <Dropdown backdrop="blur">
+    <Dropdown backdrop="blur" shouldBlockScroll>
       <DropdownTrigger>
         <Button
-          className="text-white text-xs sm:text-medium px-3 sm:px-16 py-6"
+          className="text-white text-medium w-60 sm:w-80 px-3 sm:px-16 py-6"
           variant="bordered"
         >
-          {name}
+          {isFrom ? from : to}
         </Button>
       </DropdownTrigger>
       <DropdownMenu
-        className="px-16"
+        className="p-2 max-h-96 overflow-auto"
         variant="faded"
         aria-label="Static Actions"
+        onAction={isFrom ? (e) => setFrom(String(e)) : (e) => setTo(String(e))}
       >
-        <DropdownItem key="new">New file</DropdownItem>
-        <DropdownItem key="copy">Copy link</DropdownItem>
-        <DropdownItem key="edit">Edit file</DropdownItem>
-        <DropdownItem key="delete" className="text-danger" color="danger">
-          Delete file
-        </DropdownItem>
+        {currencies.map((currency) => (
+          <DropdownItem key={currency.display}>
+            <span className="mr-8">{currency.flag}</span>
+            {currency.symbol}-{currency.name}
+          </DropdownItem>
+        ))}
       </DropdownMenu>
     </Dropdown>
   );
