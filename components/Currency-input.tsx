@@ -37,9 +37,9 @@ export default function CurrencyInput() {
               </div>
             }
             classNames={{
-              base: "max-w-[50rem] mt-8",
-              input: "resize-y text-9xl text-center mr-6",
-              label: "text-2xl text-default-400 ml-6 text-center",
+              base: "max-w-[16rem] sm:max-w-[50rem] mt-8",
+              input: "resize-y text-2xl sm:text-9xl text-center mr-6",
+              label: "sm:text-2xl text-default-400 ml-2 sm:ml-6 text-center",
             }}
           />
           <div className="h-1 text-red-500">
@@ -54,7 +54,7 @@ export default function CurrencyInput() {
           formatOptions={{ style: "currency", currency: "USD" }}
           tooltipValueFormatOptions={{ style: "currency", currency: "USD" }}
           defaultValue={40}
-          className="max-w-4xl my-8"
+          className="max-w-md my-8 sm:max-w-4xl"
           maxValue={5000}
           onChange={(newValue) => setValue(String(newValue))}
         />
@@ -76,9 +76,9 @@ export default function CurrencyInput() {
             </div>
           }
           classNames={{
-            base: "max-w-[50rem] my-14",
-            input: "resize-y text-9xl text-center mr-6",
-            label: "text-2xl text-default-400 ml-4 text-center",
+            base: "max-w-[16rem] sm:max-w-[50rem] my-14",
+            input: "resize-y text-2xl sm:text-9xl text-center mr-6",
+            label: "sm:text-2xl text-default-400 ml-2 sm:ml-4 text-center",
           }}
         />
       </form>
