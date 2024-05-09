@@ -1,20 +1,12 @@
 import { Slider, Textarea } from "@nextui-org/react";
 import { useState } from "react";
 import Rate from "./Rate";
+import { convertCurrency, validateCurrency } from "@/lib/utils";
+import { useCurrencyStore } from "@/store/currencyStore";
 
-export default function CurrencyInput() {
-  const convertCurrency = (value: string) => {
-    return Number(value) * 32.5;
-  };
-
-  const validateCurrency = (value: string) => {
-    if (isNaN(Number(value))) {
-      return "Please enter a valid number";
-    }
-    return true;
-  };
-
+export default function CurrencyInOut() {
   const [value, setValue] = useState("");
+  const { rate } = useCurrencyStore();
 
   return (
     <div className="flex items-center justify-center">
@@ -39,24 +31,23 @@ export default function CurrencyInput() {
             classNames={{
               base: "max-w-[16rem] sm:max-w-[50rem] mt-8",
               input: "resize-y text-2xl sm:text-9xl text-center mr-6",
-              label: "sm:text-2xl text-default-400 ml-2 sm:ml-6 text-center",
+              label: "sm:text-2xl text-default-400 ml-2 text-center",
             }}
           />
-          <div className="h-1 text-red-500">
+          <div className="h-4 text-red-500">
             {validateCurrency(value) !== true && validateCurrency(value)}
           </div>
         </div>
 
         <Slider
-          showTooltip={true}
           size="sm"
-          value={Number(value)}
-          formatOptions={{ style: "currency", currency: "USD" }}
-          tooltipValueFormatOptions={{ style: "currency", currency: "USD" }}
+          value={!isNaN(parseFloat(value)) ? parseFloat(value) : 0}
           defaultValue={40}
-          className="max-w-md my-8 sm:max-w-4xl"
+          step={100}
+          className="max-w-md my-8 sm:max-w-4xl transition"
           maxValue={5000}
           onChange={(newValue) => setValue(String(newValue))}
+          aria-label="Currency slider"
         />
 
         <Rate />
@@ -64,7 +55,11 @@ export default function CurrencyInput() {
         <Textarea
           type="number"
           label="To"
-          value={convertCurrency(value).toString()}
+          value={
+            typeof value === "string" && typeof rate === "number"
+              ? convertCurrency(value, rate).toFixed(3)
+              : ""
+          }
           placeholder="0.00"
           maxRows={1}
           isReadOnly
@@ -78,7 +73,7 @@ export default function CurrencyInput() {
           classNames={{
             base: "max-w-[16rem] sm:max-w-[50rem] my-14",
             input: "resize-y text-2xl sm:text-9xl text-center mr-6",
-            label: "sm:text-2xl text-default-400 ml-2 sm:ml-4 text-center",
+            label: "sm:text-2xl text-default-400 ml-2 text-center",
           }}
         />
       </form>

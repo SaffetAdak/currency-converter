@@ -1,12 +1,30 @@
 "use client";
 import SectionHeader from "./Section-header";
 import DropdownConverter from "./Dropdown-converter";
-import CurrencyInput from "./Currency-input";
+import CurrencyInOut from "./Currency-in-out";
 import SwitchButton from "./Switch-button";
 import { useCurrencyStore } from "@/store/currencyStore";
+import { useEffect } from "react";
+import { getConversion } from "@/api/route";
+import { extractSymbol } from "@/lib/utils";
 
 export default function Converter() {
-  const { from, to } = useCurrencyStore();
+  const { from, to, setRate } = useCurrencyStore();
+  useEffect(() => {
+    const fetchConversion = async () => {
+      const res = await getConversion({
+        from: extractSymbol(from),
+        to: extractSymbol(to),
+      });
+      if (res) {
+        const data = JSON.parse(res);
+        const rate = Object.values(data)[0] as number;
+        setRate(rate);
+      }
+    };
+    fetchConversion();
+  });
+
   return (
     <section className="z-[999]">
       <SectionHeader>Currency Converter</SectionHeader>
@@ -16,7 +34,7 @@ export default function Converter() {
         <DropdownConverter to={to} />
       </div>
       <div>
-        <CurrencyInput />
+        <CurrencyInOut />
       </div>
     </section>
   );

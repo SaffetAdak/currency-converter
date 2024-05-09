@@ -23,6 +23,7 @@ export default function DropdownConverter({
         <Button
           className="text-white text-medium w-60 sm:w-80 px-3 sm:px-16 py-6"
           variant="bordered"
+          aria-label="Currency selection button"
         >
           {isFrom ? from : to}
         </Button>
@@ -30,11 +31,14 @@ export default function DropdownConverter({
       <DropdownMenu
         className="p-2 max-h-96 overflow-auto"
         variant="faded"
-        aria-label="Static Actions"
+        aria-label="Currency selection"
         onAction={isFrom ? (e) => setFrom(String(e)) : (e) => setTo(String(e))}
       >
         {currencies.map((currency) => (
-          <DropdownItem key={currency.display}>
+          <DropdownItem
+            key={currency.display}
+            textValue={`${currency.symbol} - ${currency.name}`}
+          >
             <span className="mr-8">{currency.flag}</span>
             {currency.symbol}-{currency.name}
           </DropdownItem>
