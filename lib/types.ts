@@ -4,7 +4,7 @@ export type SectionHeaderProps = {
 
 export type CurrencyInputProps = {
   value: string;
-  symbol: string;
+  code: string;
 };
 
 export type ConversionNameProps = {

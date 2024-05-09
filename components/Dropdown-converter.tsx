@@ -17,6 +17,7 @@ export default function DropdownConverter({
 }: ConversionNameProps) {
   polyfillCountryFlagEmojis();
   const { setFrom, setTo } = useCurrencyStore();
+
   return (
     <Dropdown backdrop="blur" shouldBlockScroll>
       <DropdownTrigger>
@@ -37,10 +38,9 @@ export default function DropdownConverter({
         {currencies.map((currency) => (
           <DropdownItem
             key={currency.display}
-            textValue={`${currency.symbol} - ${currency.name}`}
+            textValue={`${currency.code} - ${currency.name}`}
           >
-            <span className="mr-8">{currency.flag}</span>
-            {currency.symbol}-{currency.name}
+            {currency.display}
           </DropdownItem>
         ))}
       </DropdownMenu>

@@ -67,7 +67,7 @@ export default function CurrencyInOut() {
           labelPlacement="outside"
           startContent={
             <div className="pointer-events-none flex items-center ">
-              <span className="text-default-400 text-4xl">$</span>
+              <span className="text-default-400 text-4xl"></span>
             </div>
           }
           classNames={{
