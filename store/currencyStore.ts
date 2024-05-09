@@ -6,4 +6,6 @@ export const useCurrencyStore = create<currencyStore>((set) => ({
   setFrom: (from) => set(() => ({ from })),
   to: "🇹🇷\xa0\xa0\xa0\xa0\xa0\xa0TRY-Turkish Lira",
   setTo: (to) => set(() => ({ to })),
+  rate: 32.5,
+  setRate: (rate) => set(() => ({ rate })),
 }));
