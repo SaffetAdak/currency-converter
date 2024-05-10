@@ -3,12 +3,11 @@ import axios from "axios";
 
 const host = "https://api.frankfurter.app/latest?";
 
-export async function getConversion({ amount, from, to }: ConversionProps) {
+export async function getConversion({ from, to }: ConversionProps) {
   try {
-    const response = await axios.get(
-      `${host}amount=${amount}&from=${from}&to=${to}`
-    );
-    return response.data;
+    const response = await axios.get(`${host}amount=1&from=${from}&to=${to}`);
+    const newData = JSON.stringify(response.data.rates);
+    return newData;
   } catch (error) {
     console.error(error);
   }

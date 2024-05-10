@@ -4,7 +4,7 @@ export type SectionHeaderProps = {
 
 export type CurrencyInputProps = {
   value: string;
-  symbol: string;
+  code: string;
 };
 
 export type ConversionNameProps = {
@@ -14,7 +14,6 @@ export type ConversionNameProps = {
 };
 
 export type ConversionProps = {
-  amount: number;
   from: string;
   to: string;
 };
@@ -24,4 +23,6 @@ export type currencyStore = {
   setFrom: (fromBasic: string) => void;
   to: string;
   setTo: (toBasic: string) => void;
+  rate: number;
+  setRate: (rate: number) => void;
 };
