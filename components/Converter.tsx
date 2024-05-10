@@ -1,8 +1,8 @@
 "use client";
-import SectionHeader from "./Section-header";
-import DropdownConverter from "./Dropdown-converter";
-import CurrencyInput from "./Currency-input";
-import SwitchButton from "./Switch-button";
+import SectionHeader from "./SectionHeader";
+import DropdownConverter from "./DropdownConverter";
+import CurrencyInput from "./CurrencyInput";
+import SwitchButton from "./SwitchButton";
 import { useCurrencyStore } from "@/store/currencyStore";
 
 export default function Converter() {
