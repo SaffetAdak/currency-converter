@@ -1,7 +1,7 @@
 "use client";
 import SectionHeader from "./SectionHeader";
 import DropdownConverter from "./DropdownConverter";
-import CurrencyInput from "./CurrencyInput";
+import CurrencyInOut from "./CurrencyInOut";
 import SwitchButton from "./SwitchButton";
 import { useCurrencyStore } from "@/store/currencyStore";
 import { useEffect } from "react";
