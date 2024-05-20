@@ -1,12 +1,12 @@
 import { Slider, Textarea } from "@nextui-org/react";
 import { useState } from "react";
 import Rate from "./Rate";
-import { convertCurrency, validateCurrency } from "@/lib/utils";
+import { convertCurrency, extractSymbol, validateCurrency } from "@/lib/utils";
 import { useCurrencyStore } from "@/store/currencyStore";
 
 export default function CurrencyInOut() {
   const [value, setValue] = useState("");
-  const { rate } = useCurrencyStore();
+  const { rate, from, to } = useCurrencyStore();
 
   return (
     <div className="flex items-center justify-center">
@@ -25,7 +25,9 @@ export default function CurrencyInOut() {
             labelPlacement="outside"
             startContent={
               <div className="pointer-events-none flex items-center ">
-                <span className="text-default-400 text-4xl">$</span>
+                <span className="text-default-400 text-4xl">
+                  {extractSymbol(from)}
+                </span>
               </div>
             }
             classNames={{
@@ -43,11 +45,25 @@ export default function CurrencyInOut() {
           size="sm"
           value={!isNaN(parseFloat(value)) ? parseFloat(value) : 0}
           defaultValue={40}
-          step={100}
-          className="max-w-md my-8 sm:max-w-4xl transition"
-          maxValue={5000}
-          onChange={(newValue) => setValue(String(newValue))}
+          step={5}
+          className="max-w-md my-8 sm:max-w-4xl"
+          maxValue={100}
           aria-label="Currency slider"
+          onChange={(newValue) => setValue(String(newValue))}
+          marks={[
+            {
+              value: 25,
+              label: "25",
+            },
+            {
+              value: 50,
+              label: "50",
+            },
+            {
+              value: 75,
+              label: "75",
+            },
+          ]}
         />
 
         <Rate />
@@ -67,7 +83,9 @@ export default function CurrencyInOut() {
           labelPlacement="outside"
           startContent={
             <div className="pointer-events-none flex items-center ">
-              <span className="text-default-400 text-4xl"></span>
+              <span className="text-default-400 text-4xl">
+                {extractSymbol(to)}
+              </span>
             </div>
           }
           classNames={{
