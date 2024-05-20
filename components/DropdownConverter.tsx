@@ -1,3 +1,4 @@
+import React, { useMemo } from "react";
 import {
   Dropdown,
   DropdownTrigger,
@@ -18,13 +19,33 @@ export default function DropdownConverter({
   polyfillCountryFlagEmojis();
   const { setFrom, setTo } = useCurrencyStore();
 
+  const dropdownItems = useMemo(
+    () =>
+      currencies.map((currency) => (
+        <DropdownItem key={currency.display} textValue={currency.display}>
+          {currency.display}
+        </DropdownItem>
+      )),
+    []
+  );
+
+  const handleChange = (e: any) => {
+    const selectedCurrency = String(e);
+    if (isFrom) {
+      setFrom(selectedCurrency);
+    } else {
+      setTo(selectedCurrency);
+    }
+  };
+
   return (
     <Dropdown backdrop="blur" shouldBlockScroll>
       <DropdownTrigger>
         <Button
-          className="text-white text-medium w-60 sm:w-80 px-3 sm:px-16 py-6"
+          className="text-white text-medium px-3 sm:px-16 py-6"
           variant="bordered"
           aria-label="Currency selection button"
+          style={{ width: "auto" }} // Adjust width dynamically
         >
           {isFrom ? from : to}
         </Button>
@@ -33,16 +54,9 @@ export default function DropdownConverter({
         className="p-2 max-h-96 overflow-auto"
         variant="faded"
         aria-label="Currency selection"
-        onAction={isFrom ? (e) => setFrom(String(e)) : (e) => setTo(String(e))}
+        onAction={handleChange}
       >
-        {currencies.map((currency) => (
-          <DropdownItem
-            key={currency.display}
-            textValue={`${currency.code} - ${currency.name}`}
-          >
-            {currency.display}
-          </DropdownItem>
-        ))}
+        {dropdownItems}
       </DropdownMenu>
     </Dropdown>
   );
