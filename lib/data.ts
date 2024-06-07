@@ -1,3 +1,5 @@
+export const colors = ["#13FFAA", "#1E67C6", "#CE84CF", "#DD335C"];
+
 export const links = [
   {
     name: "Home",

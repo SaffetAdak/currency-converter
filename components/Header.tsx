@@ -1,15 +1,14 @@
-import { links } from "@/lib/data";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function Header() {
   return (
-    <header className="relative w-full">
-      <ul className="flex justify-between items-center mx-4 -mt-2 text-gray-600">
+    <header className="relative mt-8 sm:absolute sm:left-8 sm:top-10 z-10">
+      <ul className=" group flex justify-start items-center mx-4 -mt-8 text-gray-200">
         <li>
-          <Link href={links[0].url}>
+          <Link href="/">
             <Image
-              src="/logo.png"
+              src="/logo5.png"
               width={64}
               height={64}
               quality={95}
@@ -19,15 +18,15 @@ export default function Header() {
             />
           </Link>
         </li>
-        <div className="flex gap-2">
-          {links.slice(1, 4).map((link) => (
-            <li key={link.url}>
-              <Link href={link.url}>{link.name}</Link>
-            </li>
-          ))}
-        </div>
-        <li className="px-[1.10rem]">
-          <Link href={links[4].url}>{links[4].name}</Link>
+        <li>
+          <div className="h-8 w-[0.1rem] mr-4 bg-white/50 rounded-md group-hover:rotate-45 origin-bottom transition"></div>
+        </li>
+        <li>
+          <div className="group-hover:translate-x-2 transition delay-[150ms]">
+            <Link href="https://saffet-adak.vercel.app" target="_blank">
+              My Page
+            </Link>
+          </div>
         </li>
       </ul>
     </header>

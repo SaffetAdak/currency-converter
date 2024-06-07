@@ -10,6 +10,8 @@ import { currencies } from "@/lib/data";
 import { polyfillCountryFlagEmojis } from "country-flag-emoji-polyfill";
 import { ConversionNameProps } from "@/lib/types";
 import { useCurrencyStore } from "@/store/currencyStore";
+import { useAnimate } from "@/lib/hooks";
+import { motion } from "framer-motion";
 
 export default function DropdownConverter({
   from,
@@ -38,17 +40,18 @@ export default function DropdownConverter({
     }
   };
 
+  const { border, boxShadow } = useAnimate();
+
   return (
     <Dropdown backdrop="blur" shouldBlockScroll>
       <DropdownTrigger>
-        <Button
-          className="text-white text-medium px-3 sm:px-16 py-6"
-          variant="bordered"
+        <motion.button
+          className="text-white text-medium px-3 py-4 w-80 rounded-xl transition hover:scale-[102%] active:scale-[98%] "
           aria-label="Currency selection button"
-          style={{ width: "auto" }} // Adjust width dynamically
+          style={{ border, boxShadow }}
         >
           {isFrom ? from : to}
-        </Button>
+        </motion.button>
       </DropdownTrigger>
       <DropdownMenu
         className="p-2 max-h-96 overflow-auto"

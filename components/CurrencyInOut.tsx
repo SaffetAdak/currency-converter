@@ -32,7 +32,8 @@ export default function CurrencyInOut() {
             }
             classNames={{
               base: "max-w-[16rem] sm:max-w-[50rem] mt-8",
-              input: "resize-y text-2xl sm:text-9xl text-center mr-6",
+              input:
+                "resize-y min-h-[8rem] max-h-[8rem]  text-2xl sm:text-9xl text-center mr-6",
               label: "sm:text-2xl text-default-400 ml-2 text-center",
             }}
           />
@@ -44,10 +45,10 @@ export default function CurrencyInOut() {
         <Slider
           size="sm"
           value={!isNaN(parseFloat(value)) ? parseFloat(value) : 0}
-          defaultValue={40}
           step={5}
-          className="max-w-md my-8 sm:max-w-4xl"
           maxValue={100}
+          minValue={0}
+          fillOffset={-1}
           aria-label="Currency slider"
           onChange={(newValue) => setValue(String(newValue))}
           marks={[
@@ -64,6 +65,20 @@ export default function CurrencyInOut() {
               label: "75",
             },
           ]}
+          classNames={{
+            base: "max-w-md my-8 sm:max-w-4xl",
+            track: "border-s-secondary-100/50 ",
+            filler:
+              "bg-gradient-to-r from-[#13FFAA] via-[#1E67C6] via-[#CE84CF] to-[#DD335C]",
+          }}
+          renderThumb={(props) => (
+            <div
+              {...props}
+              className="group p-1 top-1/2 bg-background border-small border-default-200 dark:border-default-400/50 shadow-medium rounded-full cursor-grab data-[dragging=true]:cursor-grabbing"
+            >
+              <span className="transition-transform bg-gradient-to-br shadow-small from-[#a7fadc] via-white to-[#ff82a0] rounded-full w-5 h-5 block group-data-[dragging=true]:scale-80" />
+            </div>
+          )}
         />
 
         <Rate />
@@ -76,7 +91,6 @@ export default function CurrencyInOut() {
               ? convertCurrency(value, rate).toFixed(3)
               : ""
           }
-          placeholder="0.00"
           maxRows={1}
           isReadOnly
           variant="underlined"
@@ -90,7 +104,8 @@ export default function CurrencyInOut() {
           }
           classNames={{
             base: "max-w-[16rem] sm:max-w-[50rem] my-14",
-            input: "resize-y text-2xl sm:text-9xl text-center mr-6",
+            input:
+              "resize-y min-h-[8rem] max-h-[8rem] text-2xl sm:text-9xl text-center mr-6",
             label: "sm:text-2xl text-default-400 ml-2 text-center",
           }}
         />
